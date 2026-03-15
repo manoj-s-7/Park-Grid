@@ -1,0 +1,115 @@
+/* Tailwind v4 — must be first */
+@import "tailwindcss";
+
+/* ── Tailwind v4 theme tokens ─────────────────────── */
+@theme {
+  --font-family-display: 'Syne', sans-serif;
+  --font-family-body:    'DM Sans', sans-serif;
+  --color-accent:        #2563EB;
+  --color-accent-light:  #3B82F6;
+  --color-green:         #10B981;
+  --color-yellow:        #F59E0B;
+  --color-red-500:       #EF4444;
+  --color-purple:        #8B5CF6;
+  --color-cyan:          #06B6D4;
+}
+
+/* ── CSS Variables ────────────────────────────────── */
+:root {
+  --bg-base:        #080B10;
+  --bg-surface:     #0D1117;
+  --bg-elevated:    #131920;
+  --bg-card:        #161D27;
+  --bg-hover:       #1C2530;
+  --border:         rgba(255,255,255,0.06);
+  --border-light:   rgba(255,255,255,0.10);
+  --text-primary:   #F0F4F8;
+  --text-secondary: #8A9BAE;
+  --text-muted:     #4A5568;
+  --accent:         #2563EB;
+  --accent-glow:    rgba(37,99,235,0.25);
+  --accent-light:   #3B82F6;
+  --green:          #10B981;
+  --green-bg:       rgba(16,185,129,0.12);
+  --yellow:         #F59E0B;
+  --yellow-bg:      rgba(245,158,11,0.12);
+  --red:            #EF4444;
+  --red-bg:         rgba(239,68,68,0.12);
+  --purple:         #8B5CF6;
+  --purple-bg:      rgba(139,92,246,0.12);
+  --cyan:           #06B6D4;
+  --cyan-bg:        rgba(6,182,212,0.12);
+}
+
+/* ── Base resets ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.font-display { font-family: 'Syne', sans-serif; }
+
+/* ── Scrollbars ───────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: var(--bg-surface); }
+::-webkit-scrollbar-thumb  { background: var(--bg-elevated); border-radius: 3px; }
+
+/* ── Keyframes ────────────────────────────────────── */
+@keyframes fadeUp    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn    { from { opacity:0; } to { opacity:1; } }
+@keyframes float     { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(.8);} }
+@keyframes shimmer   { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+@keyframes spin-slow { to{transform:rotate(360deg);} }
+@keyframes gridPulse { 0%,100%{opacity:1;} 50%{opacity:.6;} }
+
+/* ── Animation utility classes ────────────────────── */
+.animate-fadeUp    { animation: fadeUp .5s ease both; }
+.animate-fadeIn    { animation: fadeIn .4s ease both; }
+.animate-float     { animation: float 6s ease infinite; }
+.animate-pulse-dot { animation: pulse-dot 2s ease infinite; }
+.animate-spin      { animation: spin-slow .6s linear infinite; }
+.delay-1 { animation-delay: .1s; }
+.delay-2 { animation-delay: .2s; }
+.delay-3 { animation-delay: .3s; }
+.delay-4 { animation-delay: .4s; }
+.delay-5 { animation-delay: .5s; }
+
+/* ── Skeleton shimmer ─────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-hover) 50%, var(--bg-elevated) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ── Parking slot styles ──────────────────────────── */
+.slot-car {
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid transparent;
+  transition: transform .12s, box-shadow .12s;
+  position: relative;
+  padding: 2px;
+}
+.slot-car:hover  { transform: scale(1.1);  z-index: 10; box-shadow: 0 4px 16px rgba(0,0,0,.5); }
+.slot-available  { background: rgba(16,185,129,.15);  border-color: rgba(16,185,129,.35); }
+.slot-occupied   { background: rgba(239,68,68,.15);   border-color: rgba(239,68,68,.35); }
+.slot-reserved   { background: rgba(245,158,11,.15);  border-color: rgba(245,158,11,.35); }
+.slot-ev         { background: rgba(6,182,212,.15);   border-color: rgba(6,182,212,.35); }
+.slot-charging   { background: rgba(6,182,212,.2);    border-color: rgba(6,182,212,.5); animation: gridPulse 2s infinite; }
+.slot-disabled   { background: rgba(107,114,128,.08); border-color: rgba(107,114,128,.2); opacity:.5; cursor:not-allowed; }
+
+/* EV charging bar animation */
+@keyframes evPulse { 0%,100%{opacity:1;} 50%{opacity:.6;} }
+.ev-charging-bar { animation: evPulse 1.5s ease infinite; }
